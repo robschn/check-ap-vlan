@@ -15,7 +15,11 @@ switches = [];
 
 # open the devices doc
 with open('devices.yaml', 'r') as f:
-    switches = yaml.load(f)
+    doc = yaml.load(f)
+
+# import a list of devices
+for c in doc['switch'].keys():
+    switches.append(doc['switch'][c])
 
 # iterate over switches to connect
 for swif in (switches):
