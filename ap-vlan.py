@@ -10,6 +10,9 @@ import creds
 username = creds.login['username']
 password = creds.login['password']
 
+# definitions
+switches = [];
+
 # open the devices doc
 with open('devices.yaml', 'r') as f:
     doc = yaml.load(f)
@@ -30,10 +33,14 @@ for swif in (switches):
     net_connect = Netmiko(**myDevice)
     net_connect.enable()
 
-    shvlan = net_connect.send_command("show lldp neighbors", use_textfsm=True)
+    lldp = net_connect.send_command("show lldp neighbors detail", use_textfsm=True)
 
     # iterate over the list and grab the dict with intf
-    for i in shvlan:
-        if i['port'] == intf:
-            # grab VLAN from dict
-            vlan = i['vlan']
+    for lldpf in lldp:
+        if lldpf['capabilities'] == 'W':
+            ap_ip = lldpf['management_ip']
+            ap_port = lldpf['local_interface']
+            ap_name = lldpf['neighbor']
+            if "192.168" in ap_ip:
+                print (ap_port)
+                print (ap_name)
