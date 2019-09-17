@@ -15,15 +15,13 @@ switches = [];
 
 # open the devices doc
 with open('devices.yaml', 'r') as f:
-    doc = yaml.load(f)
+    switches = yaml.load(f)
 
-# import a list of devices
-for c in doc['switch'].keys():
-    switches.append(doc['switch'][c])
-
+# iterate over switches to connect
 for swif in (switches):
 
     # connect to switch
+    print ("Connecting to " +swif+ " now...")
     myDevice = {
     'host': swif,
     'username': username,
@@ -46,7 +44,7 @@ for swif in (switches):
             ap_port = lldpf['local_interface']
             ap_name = lldpf['neighbor']
 
-            # only print if IP is in output
-            if "192.168" in ap_ip:
+            # only print if IP is not in output
+            if "172.22." not in ap_ip:
                 print (ap_port)
                 print (ap_name)
