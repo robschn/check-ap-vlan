@@ -35,12 +35,18 @@ for swif in (switches):
 
     lldp = net_connect.send_command("show lldp neighbors detail", use_textfsm=True)
 
-    # iterate over the list and grab the dict with intf
+    # iterate over the list
     for lldpf in lldp:
+
+        # grab only "W" capabilities
         if lldpf['capabilities'] == 'W':
+
+            # grab some information
             ap_ip = lldpf['management_ip']
             ap_port = lldpf['local_interface']
             ap_name = lldpf['neighbor']
+
+            # only print if IP is in output
             if "192.168" in ap_ip:
                 print (ap_port)
                 print (ap_name)
