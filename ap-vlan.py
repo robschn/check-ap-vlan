@@ -26,8 +26,11 @@ for c in doc['switch'].keys():
 for swif in (switches):
 
     # grab host name if available
-    get_host = socket.gethostbyaddr(swif)
-    swi_host = get_host[0]
+    try:
+        get_host = socket.gethostbyaddr(swif)
+        swi_host = get_host[0]
+    except:
+        swi_host = swif
 
     # connect to switch and show the hostname
     print ("\nConnecting to " +swi_host+ " now...")
@@ -55,7 +58,7 @@ for swif in (switches):
 
             # only print if IP is not in output
             if "172.22." not in ap_ip:
-                print ("Found " +ap_name+ " on port " +ap_port+ "..")
+                print ("\nFound " +ap_name+ " on port " +ap_port+ "..")
 
                 # find and grab AP VLAN
                 status = net_connect.send_command("show interface status", use_textfsm=True)
