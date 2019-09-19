@@ -76,4 +76,4 @@ for swif in (switches):
                         ]
 
                         net_connect.send_config_set(config_commands)
-                        print ("\nDone!")
+                        print ("Done!")
