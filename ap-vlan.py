@@ -25,7 +25,7 @@ for c in doc['switch'].keys():
 for swif in (switches):
 
     # connect to switch
-    print ("Connecting to " +swif+ " now...")
+    print ("\nConnecting to " +swif+ " now...")
     myDevice = {
     'host': swif,
     'username': username,
@@ -50,7 +50,7 @@ for swif in (switches):
 
             # only print if IP is not in output
             if "172.22." not in ap_ip:
-                print ("\nFound " +ap_name+ " on port " +ap_port+ "..")
+                print ("Found " +ap_name+ " on port " +ap_port+ "..")
 
                 # change to the VLAN specified
                 # print ("Changing " +ap_name+ " to " +ap_vlan)
@@ -80,3 +80,5 @@ for swif in (switches):
 
                         net_connect.send_config_set(config_commands)
                         print ("Done!")
+        else:
+            print ("All APs in correct VLAN!")
