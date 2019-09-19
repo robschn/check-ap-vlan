@@ -69,7 +69,7 @@ for swif in (switches):
                         print ("Changing VLAN from " +ap_vlan+ " to " +new_vlan+ "..")
                         config_commands = [
                         'int '+ap_port,
-                        'shut'
+                        'shut',
                         'desc ' +ap_name,
                         'swi acc vlan '+new_vlan,
                         'no shut'
