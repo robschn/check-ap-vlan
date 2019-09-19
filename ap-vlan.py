@@ -33,7 +33,7 @@ for swif in (switches):
         swi_host = swif
 
     # connect to switch and show the hostname
-    print ("\nConnecting to " +swi_host+ " now...")
+    print ("Connecting to " +swi_host+ " now...\n")
     myDevice = {
     'host': swif,
     'username': username,
@@ -58,7 +58,7 @@ for swif in (switches):
 
             # only print if IP is not in output
             if "172.22." not in ap_ip:
-                print ("\nFound " +ap_name+ " on port " +ap_port+ "..")
+                print ("Found " +ap_name+ " on port " +ap_port+ "..")
 
                 # find and grab AP VLAN
                 status = net_connect.send_command("show interface status", use_textfsm=True)
