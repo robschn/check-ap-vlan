@@ -50,5 +50,33 @@ for swif in (switches):
 
             # only print if IP is not in output
             if "172.22." not in ap_ip:
-                print (ap_port)
-                print (ap_name)
+                print ("\nFound " +ap_name+ " on port " +ap_port+ "..")
+
+                # change to the VLAN specified
+                # print ("Changing " +ap_name+ " to " +ap_vlan)
+
+                # find and grab AP VLAN
+                status = net_connect.send_command("show interface status", use_textfsm=True)
+                for statusf in status:
+                    if statusf['port'] == ap_port:
+                        ap_vlan = statusf['vlan']
+
+                        # seperate the vlan into digits
+                        split_vlan = list(str(ap_vlan))
+                        # first digit of the vlan
+                        net_vlan = split_vlan[0]
+                        # combine first digit with 2
+                        new_vlan = net_vlan+ "2"
+
+                        # send commands
+                        print ("Changing VLAN from " +ap_vlan+ " to " +new_vlan+ "..")
+                        config_commands = [
+                        'shut'
+                        'desc ' +ap_name,
+                        'int '+ap_port,
+                        'swi acc vlan '+new_vlan,
+                        'no shut'
+                        ]
+
+                        net_connect.send_config_set(config_commands)
+                        print ("Done!")
