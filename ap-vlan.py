@@ -4,6 +4,7 @@
 
 import yaml
 from netmiko import Netmiko
+import socket
 
 # import username and password
 import creds
@@ -24,8 +25,12 @@ for c in doc['switch'].keys():
 # iterate over switches to connect
 for swif in (switches):
 
-    # connect to switch
-    print ("\nConnecting to " +swif+ " now...")
+    # grab host name if available
+    get_host = socket.gethostbyaddr(swif)
+    swi_host = get_host[0]
+
+    # connect to switch and show the hostname
+    print ("\nConnecting to " +swi_host+ " now...")
     myDevice = {
     'host': swif,
     'username': username,
